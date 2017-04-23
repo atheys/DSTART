@@ -70,6 +70,26 @@ class Manufacturing(object):
         return
 
 """
+Manufacturing Module Object Class.
+"""
+class Processing(object):
+    
+    """
+    Basic Constructor.
+    
+    @param: [center] center point of the module (Point).
+    @param: [R]      rib (length) of the module (int/float).
+    """
+    def __init__(self,center,R):
+        self.c = center
+        self.R = float(R)
+        self.label = 'P'
+        self.r = (1./3.)*self.R
+        self.color = 'o'
+        self.mod = Toc(self.c,self.R)
+        return
+
+"""
 Storage Module Object Class.
 """
 class Storage(object):
