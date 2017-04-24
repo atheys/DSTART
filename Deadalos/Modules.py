@@ -1,7 +1,7 @@
 """
 Modules Module.
 @author: Andreas Theys.
-@version: 1.0
+@version: 1.3
 """
 
 """
