@@ -2,7 +2,7 @@
 Engine Module.
 
 @author: Andreas Theys.
-@version: 1.0
+@version: 1.1
 """
 
 """
@@ -14,6 +14,12 @@ import scriptcontext as sc
 import System as sys
 from math import sqrt
 
+"""
+Selects a color for the 
+
+@param:  [color] color string (string).
+@return:         color system attribute (sys.Drawing.color).
+"""
 def drawColor(color):
     if color == 'b' or color == 'blue':
         return sys.Drawing.Color.Blue
@@ -38,6 +44,12 @@ def drawColor(color):
     else:
         return sys.Drawing.Color.Gray 
 
+"""
+Provides color in ObjectAttributes.
+
+@param:  [color] color string (string).
+@return:         color ObjectAttribute (r.DocObjects.ObjectAttribute).
+"""
 def giveColor(color):
     index = sc.doc.Materials.Add()
     mat = sc.doc.Materials[index]
@@ -49,6 +61,13 @@ def giveColor(color):
     attributes.MaterialSource = r.DocObjects.ObjectMaterialSource.MaterialFromObject
     return attributes
 
+"""
+Render sphere object in Rhino.
+
+@param: [o]     object origin point (Point).
+@param: [r]     object radius (int/float).
+@param: [color] color string (string).
+"""
 def renderSphere(o,r,color='b'):
     center = geo.Point3d(o.x,o.y,o.z)
     sphere = geo.Sphere(center,r)
@@ -57,7 +76,16 @@ def renderSphere(o,r,color='b'):
     sc.doc.Views.Redraw()
     return
 
-def renderCylinder(o,r,h,orientation='xzy',color='b'):
+"""
+Render cylinder object in Rhino.
+
+@param: [o]           object origin point (Point).
+@param: [r]           object radius (int/float).
+@param: [h]           object height (int/float).
+@param: [orientation] orientation string (string).
+@param: [color]       color string (string).
+"""
+def renderCylinder(o,r,h,orientation='xyz',color='b'):
     c = [0.,0.,0.]
     c['xyz'.index(orientation[2])] = 0.5*h
     x_o,y_o,z_o = o.x-c[0],o.y-c[1],o.z-c[2]
@@ -72,6 +100,13 @@ def renderCylinder(o,r,h,orientation='xzy',color='b'):
     sc.doc.Views.Redraw()
     return
 
+"""
+Render cube object in Rhino.
+
+@param: [o]     object origin point (Point).
+@param: [r]     object rib length (int/float).
+@param: [color] color string (string).
+"""
 def renderCube(o,r,color='b'):
     x_o,y_o,z_o = o.x-0.5*r,o.y-0.5*r,o.z-0.5*r
     x_f,y_f,z_f = o.x+0.5*r,o.y+0.5*r,o.z+0.5*r
@@ -82,7 +117,17 @@ def renderCube(o,r,color='b'):
     sc.doc.Objects.AddBrep(box,attr)
     sc.doc.Views.Redraw()
     return
-    
+ 
+"""
+Render cuboid object in Rhino.
+
+@param: [o]           object origin point (Point).
+@param: [l]           object length (int/float).
+@param: [w]           object width (int/float).
+@param: [h]           object lheight (int/float).
+@param: [orientation] orientation string (string).
+@param: [color]       color string (string).
+"""   
 def renderCuboid(o,l,w,h,orientation='xyz',color='b'):
     s,on = [l,w,h],orientation
     x,y,z = 0.5*s[on.index('x')],0.5*s[on.index('y')],0.5*s[on.index('z')]
@@ -95,7 +140,16 @@ def renderCuboid(o,l,w,h,orientation='xyz',color='b'):
     sc.doc.Objects.AddBrep(box,attr)
     sc.doc.Views.Redraw()
     return
-    
+
+"""
+Render tetrahedron object in Rhino.
+
+@param: [o]           object origin point (Point).
+@param: [r]           object rib length (int/float).
+@param: [orientation] orientation string (string).
+@param: [sense]       object top pointing sense string (string).
+@param: [color]       color string (string).
+"""     
 def renderTetrahedron(o,r,orientation='xyz',sense='++',color='b'):
     c,i = [0.,0.,0.],1.
     if sense[0] == '-':
@@ -126,6 +180,14 @@ def renderTetrahedron(o,r,orientation='xyz',sense='++',color='b'):
     sc.doc.Views.Redraw()
     return
 
+"""
+Render octahedron object in Rhino.
+
+@param: [o]           object origin point (Point).
+@param: [r]           object rib length (int/float).
+@param: [orientation] orientation string (string).
+@param: [color]       color string (string).
+""" 
 def renderOctahedron(o,r,orientation='xyz',color='b'):
     c,h = [0.,0.,0.,],0.5*sqrt(2.)*r
     c['xyz'.index(orientation[2])] = h
@@ -167,7 +229,16 @@ def renderOctahedron(o,r,orientation='xyz',color='b'):
     sc.doc.Objects.AddMesh(mesh,attr)
     sc.doc.Views.Redraw()
     return
-    
+
+"""
+Render truncated octahedron object in Rhino.
+
+@param: [o]           object origin point (Point).
+@param: [r]           object rib length (int/float).
+@param: [r2]          object truncated rib length (int/float).
+@param: [orientation] orientation string (string).
+@param: [color]       color string (string).
+"""     
 def renderTruncOctahedron(o,r,r2,orientation='xyz',color='b'):
     c,h,w = [0.,0.,0.],0.25*sqrt(2.)*(r+r2),0.25*(r-r2)
     c['xyz'.index(orientation[2])] = h
@@ -268,7 +339,16 @@ def renderTruncOctahedron(o,r,r2,orientation='xyz',color='b'):
     sc.doc.Objects.AddMesh(mesh,attr)
     sc.doc.Views.Redraw()
     return
-    
+ 
+"""
+Render capsule object in Rhino.
+
+@param: [o]           object origin point (Point).
+@param: [r]           object radius (int/float).
+@param: [h]           object height (int/float).
+@param: [orientation] orientation string (string).
+@param: [color]       color string (string).
+"""    
 def renderCapsule(o,r,h,orientation='xyz',color='b'):
     c = [0.,0.,0.]
     c['xyz'.index(orientation[2])] = 0.5*h
@@ -287,7 +367,18 @@ def renderCapsule(o,r,h,orientation='xyz',color='b'):
     sc.doc.Objects.AddSphere(sphere2,attr) 
     sc.doc.Views.Redraw()
     return
-    
+
+"""
+Render truncated capsule object in Rhino.
+
+@param: [o]           object origin point (Point).
+@param: [r]           object radius (int/float).
+@param: [h]           object height (int/float).
+@param: [r2]          object truncated radius (int/float).
+@param: [h2]          object truncated height (int/float).
+@param: [orientation] orientation string (string).
+@param: [color]       color string (string).
+"""     
 def renderTruncCapsule(o,r,h,r2,h2,orientation='xyz',color='b'):
     c = [0.,0.,0.]
     c['xyz'.index(orientation[2])] = 0.5*h
@@ -318,29 +409,4 @@ def renderTruncCapsule(o,r,h,r2,h2,orientation='xyz',color='b'):
     cone2 = geo.Brep.CreateFromRevSurface(surf2, True, True)
     sc.doc.Objects.AddBrep(cone2,attr)
     sc.doc.Views.Redraw()
-    return
-    
-from BasicShapes import Point as p
-from random import random as rdn
-
-point = p(0,0,0)
-c = ['b','g','r']
-n = len(c)-1
-k = 15
-R,r2 = 3.,1.
-h,w,h2 = 0.25*sqrt(2.)*(R-r2),0.25*(R+r2),0.25*sqrt(2.)*(R+r2)
-renderTruncOctahedron(p(0,0,0),R,r2,'xyz','b')
-renderTruncOctahedron(p(0,2*w,2*h),R,r2,'xyz','g')
-renderTruncOctahedron(p(0,0,4*h),R,r2,'xyz','r')
-renderTruncOctahedron(p(0,-2*w,2*h),R,r2,'xyz','g')
-renderTruncOctahedron(p(0,-2*w,-2*h),R,r2,'xyz','y')
-renderTruncOctahedron(p(0,2*w,-2*h),R,r2,'xyz','y')
-renderTruncOctahedron(p(2*w,0,-2*h),R,r2,'xyz','o')
-renderTruncOctahedron(p(-2*w,0,-2*h),R,r2,'xyz','o')
-renderTruncOctahedron(p(0,0,-4*h),R,r2,'xyz','r')
-"""
-for i in range(40):
-    point = p(round(k*rdn()),round(k*rdn()),round(k*rdn()))
-    renderTruncOctahedron(point,3.,1.,'xyz',c[int(round(n*rdn()))])
-"""
-    
+    return    
