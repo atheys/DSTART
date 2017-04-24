@@ -92,7 +92,3 @@ def weibullGrowthLine(grid,lamb,k):
         x = float(i)/float(M)
         limits.append(int(round(float(N)*weibull(x,lamb,k))))
     return limits
-
-grid = GC.makeGrid(100.,5.,0.11)
-line = rootGrowthLine(grid,0.65)
-print line
