@@ -2,13 +2,14 @@
 ComplexShapes Module.
 
 @author: Andreas Theys.
-@version: 1.0
+@version: 1.1
 """
 
 """
 Module imports.
 """
 from math import sqrt,pi
+import RhinoEngine as RE
 
 """
 Tetrahedron Object Class. 
@@ -148,6 +149,18 @@ class TruncOctahedron(object):
         r = self.r
         A = 2.*sqrt(3)*(r**2)
         return A
+    
+    """
+    Converts figure to Rhino mesh.
+    
+    @param: [origin]      origin point of the figure (Point).
+    @param: [orientation] orientation mode of the figure (string).
+    @param: [color]       color string of the figure (string).
+    """
+    def toRhino(self,orientation='xyz',color=' '):
+        orien,c = orientation,color
+        RE.renderTruncOctahedron(self.o,self.r,self.r2,orien,c)
+        return
 
 """
 Capsule Object Class. 
