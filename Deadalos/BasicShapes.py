@@ -294,6 +294,16 @@ class Cube(object):
         if string == "Cube" or string == "cube":
             return True
         return False
+    
+    """
+    Render Rhino cube.
+    
+    @param: [color] color string (string).
+    """
+    def toRhino(self,color='b'):
+        import RhinoEngine as RE
+        RE.renderCube(self.o,self.r,color)
+        return
 
 """
 Cuboid Object Class.

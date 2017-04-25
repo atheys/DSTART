@@ -41,8 +41,16 @@ def drawColor(color):
         return sys.Drawing.Color.Purple
     elif color == 'k' or color == 'black':
         return sys.Drawing.Color.Black
+    elif color == 'gr' or color == 'gray':
+        return sys.Drawing.Color.Gray
+    elif color == 'dgr' or color == 'darkgray':
+        return sys.Drawing.Color.DarkGray 
+    elif color == 'w' or color == 'white':
+        return sys.Drawing.Color.White
+    elif color == 's' or color == 'silver':
+        return sys.Drawing.Color.Silver
     else:
-        return sys.Drawing.Color.Gray 
+        return sys.Drawing.Color.Black       
 
 """
 Provides color in ObjectAttributes.

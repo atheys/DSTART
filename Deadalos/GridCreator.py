@@ -17,7 +17,7 @@ Determines nearest even number.
 @param:  [k] relevant number (int).
 @return:     nearest even number.
 """
-def nearestEvenNumber(k):
+def nearestUnevenNumber(k):
     k = int(k)
     if k%2 == 0:
         return k-1
@@ -33,7 +33,7 @@ Determines N-coefficient for number y- and z-cells.
 def N(D,r):
     D,r = float(D),float(r)
     coeff = (sqrt(2.)*D)/(2.8*r)
-    N = nearestEvenNumber(int(floor(coeff)))
+    N = nearestUnevenNumber(int(floor(coeff)))
     return N
 
 """
@@ -50,7 +50,7 @@ def M(D,r,phi):
         return -1
     else:
         coeff = ((2.*(1.-tan(phi))-sqrt(2.))/(2.8*tan(phi)*r))*D
-        M = nearestEvenNumber(int(floor(coeff)))
+        M = nearestUnevenNumber(int(floor(coeff)))
         return M
 
 """
