@@ -57,12 +57,14 @@ Normalization function.
 @return: [components] list of normalized components (Component-list).
 """
 def normalize(components):
-    s = 0.
+    new,s = [],0.
     for comp in components:
-        s += comp.perc
-    for comp in components:
+        if comp.perc > 0.:
+            new.append(comp)
+            s += comp.perc
+    for comp in new:
         comp.perc /= s
-    return components
+    return new
 
 """
 Computes (cumulative) percentages list.

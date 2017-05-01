@@ -4,8 +4,6 @@ Module imports.
 """
 from math import sqrt,floor
 from BasicShapes import Point as P
-import RhinoEngine as RE
-import GridCreator as GC
 
 """
 Determines nearest even number.
@@ -28,7 +26,7 @@ Creates abstract grid point list.
 """
 def abstractGrid(R,Z):
     R,Z = float(R),float(Z)
-    R = sqrt(R**2-0.25*Z**2)
+    R = sqrt(R**2-Z**2)
     N,k = int(floor(R/Z)),-1
     if N%2==1:
         k = -2
@@ -79,7 +77,7 @@ def shape(matrix):
     if N%2 == 0:
         for i in range(N):
             for j in range(N):
-                l1,l2 = C-i,(C-j)
+                l1,l2 = C-i,C-j
                 if i<C:
                     l1-=1
                 if j<C:
@@ -140,3 +138,7 @@ def asteroidPointGrid(R,Z):
             temp1.append(temp2)
         apg.append(temp1)
     return apg
+
+# R/Z ratio 100 = 1016228
+from random import random as rdn
+print rdn()

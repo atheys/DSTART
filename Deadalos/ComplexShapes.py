@@ -9,7 +9,6 @@ ComplexShapes Module.
 Module imports.
 """
 from math import sqrt,pi
-import RhinoEngine as RE
 
 """
 Tetrahedron Object Class. 
@@ -158,6 +157,7 @@ class TruncOctahedron(object):
     @param: [color]       color string of the figure (string).
     """
     def toRhino(self,orientation='xyz',color=' '):
+        import RhinoEngine as RE
         orien,c = orientation,color
         RE.renderTruncOctahedron(self.o,self.r,self.r2,orien,c)
         return
