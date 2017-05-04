@@ -136,7 +136,7 @@ class TruncOctahedron(object):
     """ 
     def volume(self):
         r = self.r
-        V = (r**3)*(sqrt(2)/3.)
+        V = 8.*(r**3)*sqrt(2)
         return V
     
     """
@@ -146,7 +146,7 @@ class TruncOctahedron(object):
     """ 
     def area(self):
         r = self.r
-        A = 2.*sqrt(3)*(r**2)
+        A = (6.+12.*sqrt(3))*(r**2)
         return A
     
     """
