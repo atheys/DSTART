@@ -18,22 +18,25 @@ class Material(object):
     """
     Basic Constructor.
     
-    @param: [symbol]  material symbol (string).
-    @param: [name]    material name (string).
-    @param: [color]   color string (string).
-    @param: [density] material density (float).
-    @param: [young]   Young's modulus (float; GPa).
-    @param: [yiel]    yield stress (float; MPa).
-    @param: [crit]    critical stress (float; MPa).  
+    @param: [symbol]    material symbol (string).
+    @param: [name]      material name (string).
+    @param: [color]     color string (string).
+    @param: [amu_rho]   atomic mass units or desnity (float).
+    @param: [E_s]       specific energy absorption (float;J/kg).
+    @param: [protons]   number of protons.
+    @param: [neutrons]  number of neutrons.
+    @param: [electrons] number of electrons.
     """
-    def __init__(self,symbol,name,color,density,young,yiel,crit):
+    def __init__(self,symbol,name,color,amu_rho,protons=0.,neutrons=0.,electrons=0.):
         self.symbol = str(symbol)
         self.name = str(name)
         self.color = str(color)
-        self.dens = float(density)
-        self.young = float(young)
-        self.yiel = float(yiel)
-        self.crit = float(crit)
+        self.amu_rho = float(amu_rho)
+        self.E_s = float(E_s)
+        self.protons = float(protons)
+        self.neutrons = float(neutrons)
+        self.electrons = float(electrons)
+        self.type = "Material"
 
 """
 Component Object Class.
@@ -49,6 +52,7 @@ class Component(object):
     def __init__(self,material,perc):
         self.material = material
         self.perc = float(perc)
+        self.type = "Component"
 
 """
 Normalization function.
@@ -90,9 +94,12 @@ class Composition(object):
     
     @param: [components] components [Component-list].
     """
-    def __init__(self,components):
+    def __init__(self,components,rho=0.,E_s=0.):
         self.components = normalize(components)
-        self.p = percentages(components)  
+        self.p = percentages(components)
+        self.rho = float(rho)
+        self.E_s = float(E_s)
+        self.type = "Composition"
     
     """
     Selects (randomly) a material in the composition.
