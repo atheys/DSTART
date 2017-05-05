@@ -6,14 +6,9 @@ Materials module.
 """
 
 """
-Module imports.
-"""
-from random import random as rdn
-
-"""
 Material Object Class.
 """
-class Material(object):
+class Isotope(object):
     
     """
     Basic Constructor.
@@ -32,11 +27,11 @@ class Material(object):
         self.name = str(name)
         self.color = str(color)
         self.amu_rho = float(amu_rho)
-        self.E_s = float(E_s)
         self.protons = float(protons)
         self.neutrons = float(neutrons)
         self.electrons = float(electrons)
-        self.type = "Material"
+        self.type = "Isotope"
+        return
 
 """
 Component Object Class.
@@ -53,6 +48,7 @@ class Component(object):
         self.material = material
         self.perc = float(perc)
         self.type = "Component"
+        return
 
 """
 Normalization function.
@@ -100,13 +96,4 @@ class Composition(object):
         self.rho = float(rho)
         self.E_s = float(E_s)
         self.type = "Composition"
-    
-    """
-    Selects (randomly) a material in the composition.
-    """
-    def select(self):
-        q = rdn()
-        for i in range(len(self.p)-1):
-            if self.p[i]<=q and q<self.p[i+1]:
-                return self.components[i].material
-        return Material('UL','Useless','k',0.,0.,0.,0.)
+        return
