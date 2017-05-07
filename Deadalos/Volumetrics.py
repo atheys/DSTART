@@ -2,13 +2,14 @@
 Volumetrics Module.
 
 @author: Andreas Theys.
-@version: 1.0
+@version: 1.2
 """
 
 """
 Module imports.
 """
 from math import sqrt
+from Composition import space
 
 """
 Module preamble constants.
@@ -17,6 +18,22 @@ prot,neut = 1.67262189821/(10.**27),1.67492747121/(10.**27)
 elec,amu,c = 9.1093835611/(10.**31),1.66053904/(10.**27),3.*10.**8
 proton,neutron,electron = prot*c**2,neut*c**2,elec*c**2
 unit = amu*c**2
+
+"""
+Computes the average atomic mass of the deep space medium.
+
+@param:  [environment] deep space environment composition.
+@return: [mass]        average atomic mass of the medium.
+"""
+def avgMass(environment=space):
+    mass = 0.
+    for element in environment.components:
+        p = element.perc
+        for isotope in element.material.components:
+            fraction = p*isotope.perc
+            mass_fraction = fraction*isotope.material.amu_rho
+            mass += mass_fraction
+    return mass
 
 """
 Computes relativistic kinetic energy.
@@ -48,7 +65,29 @@ def energy_units(units,frac=0.1):
     E *= gamma
     return E
 
+"""
+Calculates the average collision energy.
 
+@param:  [A]         surface area of the structure (m^2).
+@param:  [partciles] number of particles per unit volume (particles/m^3).
+@param:  [energy]    average relativistic kinetic energy (J/particle).
+@param:  [frac]      fraction of the speed of light.
+@return: [E_col]     collision energy coeffcient (J/(s*m^2)).
+"""
+def collisionEnergy(particles,energy=energy_units(avgMass()),frac=0.1):
+    V = frac*c
+    E_col = V*energy*particles
+    return E_col
+
+
+a = 5.
+A = (6.+12.*sqrt(3))*(a**2)
+manu = 24.*3600.
+p = 0.12*10.**6
+
+a= [(1,1,1)]
+a.remove((1,1,1))
+print a
 
 """
 V = 0.3*10**8                   # m/s
