@@ -118,7 +118,7 @@ def neighbors(n,grid,filled=False):
     nodes = [(i,j,k-1),(i+1,j,k),(i,j+1,k),(i-1,j,k),(i,j-1,k),\
              (i+1,j-1,k),(i+1,j+1,k),(i-1,j+1,k),(i-1,j-1,k),\
              (i+1,j,k+1),(i,j+1,k+1),(i-1,j,k+1),(i,j-1,k+1),(i,j,k+1)]
-    actual = []
+    actual,numbers = [],[1,2,3,4,5,6,7,8,9,10,11,12,13,14]
     for l in range(len(nodes)-1,-1,-1): 
         node = nodes[l]
         try:
@@ -128,11 +128,12 @@ def neighbors(n,grid,filled=False):
                 if filled:
                     if b: 
                         actual.append(node)
+                        numbers.remove(l+1)
                 else:
                     actual.append(node)
         except Exception:
             temp = ' '
-    return actual
+    return actual,numbers
 
 def foundInDone(n,done):
     for item in done:
@@ -164,7 +165,7 @@ def Dijkstra(n1,n2,grid):
     # Iteration
     while current[0] != n2 and current != None:
         d = current[1]
-        N = neighbors(current[0],grid,True)
+        N ,numbers = neighbors(current[0],grid,True)
         for n in N:
             if not foundInDone(n,done):
                 node = findNode(n,V)

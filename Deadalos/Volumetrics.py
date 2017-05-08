@@ -79,17 +79,52 @@ def collisionEnergy(particles,energy=energy_units(avgMass()),frac=0.1):
     E_col = V*energy*particles
     return E_col
 
+"""
+Determines area of a module exposed to outer spce medium.
 
-
-
-a = 5.
-A = (6.+12.*sqrt(3))*(a**2)
-manu = 24.*3600.
-p = 0.12*10.**6
-
-a= [(1,1,1)]
-a.remove((1,1,1))
-print a
+@param: [a]     rib length of the modules (float).
+@param: [sides] inclusive indicator (list of int).
+@param: [A]     exposed area (float).
+"""
+def area(a,sides):
+    a,A = float(a),0.
+    # Edge cases
+    if len(sides) == 14:
+        return (6.+12.*sqrt(3))*(a**2)
+    if len(sides) == 0:
+        return A
+    if 1 in sides:
+        A += a**2
+    if 2 in sides:
+        A += 1.5*sqrt(3)*a**2
+    if 3 in sides:
+        A += 1.5*sqrt(3)*a**2
+    if 4 in sides:
+        A += 1.5*sqrt(3)*a**2
+    if 5 in sides:
+        A += 1.5*sqrt(3)*a**2
+    if 6 in sides:
+        A += a**2
+    if 7 in sides:
+        A += a**2
+    if 8 in sides:
+        A += a**2
+    if 9 in sides:
+        A += a**2
+    if 10 in sides:
+        A += 1.5*sqrt(3)*a**2
+    if 11 in sides:
+        A += 1.5*sqrt(3)*a**2
+    if 12 in sides:
+        A += 1.5*sqrt(3)*a**2
+    if 13 in sides:
+        A += 1.5*sqrt(3)*a**2
+    if 14 in sides:
+        A += a**2
+    return A
+        
+def thickness(a,sides,material,particles)
+a,sides,particles,MR,material
 
 """
 V = 0.3*10**8                   # m/s
