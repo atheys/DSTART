@@ -105,3 +105,79 @@ def makePointGrid(D,r,phi):
             temp1.append(temp2)
         pgrid.append(temp1)
     return pgrid
+   
+"""
+Determines all neighboring nodes of certain grid point.
+
+@param:  [n]      grid coordinate point (tuple).
+@param:  [grid]   grid matrix (3D nested list of strings).
+@return: [actual] actual list of neighboring nodes (list of tuples).
+"""   
+def neighbors(n,grid,filled=False):
+    i,j,k = n[0],n[1],n[2]
+    nodes = [(i,j,k-1),(i+1,j,k),(i,j+1,k),(i-1,j,k),(i,j-1,k),\
+             (i+1,j-1,k),(i+1,j+1,k),(i-1,j+1,k),(i-1,j-1,k),\
+             (i+1,j,k+1),(i,j+1,k+1),(i-1,j,k+1),(i,j-1,k+1),(i,j,k+1)]
+    actual = []
+    for l in range(len(nodes)-1,-1,-1): 
+        node = nodes[l]
+        try:
+            x,y,z = node[0],node[1],node[2]
+            b = grid[x][y][z] != ''
+            if x>=0 and y>=0 and z>=0:
+                if filled:
+                    if b: 
+                        actual.append(node)
+                else:
+                    actual.append(node)
+        except Exception:
+            temp = ' '
+    return actual
+
+def foundInDone(n,done):
+    for item in done:
+        if item[0]==n:
+            return True
+    return False
+
+def findNode(n,V):
+    for item in V:
+        if item[0]==n:
+            return item
+    return None
+
+def findMinNode(V):
+    m,n = 1000000.,None
+    for item in V:
+        if item[1]<m:
+            n = item
+            m = item[1]
+    return n
+    
+    
+def Dijkstra(n1,n2,grid):
+    # Initiation
+    V = [(n1,0.)]
+    current = findMinNode(V)
+    V.remove(current)
+    done = []
+    # Iteration
+    while current[0] != n2 and current != None:
+        d = current[1]
+        N = neighbors(current[0],grid,True)
+        for n in N:
+            if not foundInDone(n,done):
+                node = findNode(n,V)
+                if node != None:
+                   if node[1]>d+1.:
+                       V.remove(node)
+                       V.append((n,d+1.)) 
+                else:
+                   V.append((n,d+1.)) 
+        done.append(current) 
+        current = findMinNode(V)
+        V.remove(current)
+    if current == None:
+        return -1.
+    else:
+        return current[1]
