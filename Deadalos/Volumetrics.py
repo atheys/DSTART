@@ -80,6 +80,8 @@ def collisionEnergy(particles,energy=energy_units(avgMass()),frac=0.1):
     return E_col
 
 
+
+
 a = 5.
 A = (6.+12.*sqrt(3))*(a**2)
 manu = 24.*3600.
