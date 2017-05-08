@@ -122,9 +122,7 @@ def area(a,sides):
     if 14 in sides:
         A += a**2
     return A
-        
-def thickness(a,sides,material,particles)
-a,sides,particles,MR,material
+
 
 """
 V = 0.3*10**8                   # m/s

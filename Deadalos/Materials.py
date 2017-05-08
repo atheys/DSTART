@@ -55,7 +55,7 @@ Ni_2 = Material('Nickel Alloy',ni2,8430.,50000.)                        # Carpen
 """
 Copper.
 """
-Cu_alloy = Material('Copper Alloy',cu_alloy,8780.,17500.)                        # Copper-Nickel-Phosphorus-Tellurium alloy, UNS C19100  
+Cu_alloy = Material('Copper Alloy',cu_alloy,8780.,17500.)               # Copper-Nickel-Phosphorus-Tellurium alloy, UNS C19100  
 
 """
 Steel.

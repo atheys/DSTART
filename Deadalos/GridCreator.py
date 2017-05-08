@@ -135,18 +135,38 @@ def neighbors(n,grid,filled=False):
             temp = ' '
     return actual,numbers
 
+"""
+Helper method to find node in done list.
+
+@param:  [n]    node specification (tuple mixture).
+@param:  [done] done-list (list of done nodes).
+@return:        evaluation boolean (bool).
+"""
 def foundInDone(n,done):
     for item in done:
         if item[0]==n:
             return True
     return False
 
+"""
+Finds nodes in active list.
+
+@param:  [n]    node specification (tuple mixture).
+@param:  [V]    node list (list).
+@return:        node (tuple mixture or None-object).
+"""
 def findNode(n,V):
     for item in V:
         if item[0]==n:
             return item
     return None
 
+"""
+Finds shortest distance node.
+
+@param:  [V] node list (list).
+@return: [n] shortest distance node (tuple mixture or None-object).
+"""
 def findMinNode(V):
     m,n = 1000000.,None
     for item in V:
@@ -155,7 +175,13 @@ def findMinNode(V):
             m = item[1]
     return n
     
-    
+"""
+Finds shortest path from one module to another.
+
+@param: [n1] first node/module (tuple).
+@param: [n2] second node/module (tuple).
+@return:     number of modules to cross (float).
+"""   
 def Dijkstra(n1,n2,grid):
     # Initiation
     V = [(n1,0.)]
@@ -178,6 +204,7 @@ def Dijkstra(n1,n2,grid):
         done.append(current) 
         current = findMinNode(V)
         V.remove(current)
+    # Termination
     if current == None:
         return -1.
     else:
