@@ -69,15 +69,16 @@ Creates composite material.
 @param: [iso]         isotropic material property (bool).
 @param: [c]           composite material (Material).
 """
-def composite(name,composition,materials,iso=False):
+def composite(name,composition,materials):
         name,composition = str(name),normalize(composition)
         N = len(composition)
         if len(materials) == N:
-            rho,E_s = 0.,0.
+            rho,E_s,isotropic = 0.,0.,True
             elements = dict([])
             for i in range(N):
                 rho += composition[i]*materials[i].rho
                 E_s += composition[i]*materials[i].E_s
+                isotropic = isotropic and materials[i].iso
                 for el in materials[i].composition.components:
                     sym = el.material.components[0].material.symbol
                     p = composition[i]*el.perc
@@ -85,6 +86,5 @@ def composite(name,composition,materials,iso=False):
                         elements[sym] += p
                     except Exception:
                         elements[sym] = p
-        c = Material(name,elements,rho,E_s,iso)
-        print elements
+        c = Material(name,elements,rho,E_s,isotropic)
         return c
