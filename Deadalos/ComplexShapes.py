@@ -2,7 +2,7 @@
 ComplexShapes Module.
 
 @author: Andreas Theys.
-@version: 1.1
+@version: 1.5
 """
 
 """
@@ -55,6 +55,18 @@ class Tetrahedron(object):
         r = self.r
         A = sqrt(3)*(r**2)
         return A
+    
+    """
+    Renders tetrahedron object in Rhino.
+    
+    @param: [color]       color of the tetrahedron(str).
+    @param: [sense]       sense of the tetrahedron (str).
+    @param: [orientation] orientation of the tetrahedron (str).
+    """
+    def toRhino(self,color=' ',sense='++',orientation='xyz'):
+        import RhinoEngine as RE
+        RE.renderTetrahedron(self.o,self.r,orientation='xyz',sense='++',color='b')
+        return
 
 """
 Octahedron Object Class. 
@@ -101,6 +113,17 @@ class Octahedron(object):
         r = self.r
         A = 2.*sqrt(3)*(r**2)
         return A
+    
+    """
+    Renders octahedron object in Rhino.
+    
+    @param: [color]       color of the octahedron(str).
+    @param: [orientation] orientation of the octaahedron (str).
+    """
+    def toRhino(self,color=' ',orientation='xyz'):
+        import RhinoEngine as RE
+        RE.renderOctahedron(self.o,self.r,orientation,color)
+        return
 
 """
 Truncated Octahedron Object Class. 
@@ -152,11 +175,10 @@ class TruncOctahedron(object):
     """
     Converts figure to Rhino mesh.
     
-    @param: [origin]      origin point of the figure (Point).
-    @param: [orientation] orientation mode of the figure (string).
     @param: [color]       color string of the figure (string).
+    @param: [orientation] orientation mode of the figure (string).
     """
-    def toRhino(self,orientation='xyz',color=' '):
+    def toRhino(self,color=' ',orientation='xyz'):
         import RhinoEngine as RE
         orien,c = orientation,color
         RE.renderTruncOctahedron(self.o,self.r,self.r2,orien,c)
@@ -210,6 +232,17 @@ class Capsule(object):
         A = 2.*pi*r*(2.*r+h)
         return A
     
+    """
+    Renders capsule object in Rhino.
+    
+    @param: [color]       color string of the figure (string).
+    @param: [orientation] orientation mode of the figure (string).
+    """
+    def toRhino(self,color=' ',orientation='xyz'):
+        import RhinoEngine as RE
+        RE.renderCapsule(self.o,self.r,self.h,orientation,color)
+        return
+    
 """
 Truncated Capsule Object Class. 
 """
@@ -261,3 +294,14 @@ class TruncCapsule(object):
         A_2 = (r2**2)*pi
         A = 2.*(A_1+A_2)+2.*pi*r*h
         return A
+      
+    """
+    Renders Truncated capsule in Rhino.
+    
+    @param: [color]       color string of the figure (string).
+    @param: [orientation] orientation mode of the figure (string).
+    """
+    def toRhino(self,color=' ',orientation='xyz'):
+        import RhinoEngine as RE
+        RE.renderTruncCapsule(self.o,self.r,self.h,self.r2,self.h2,orientation,color)
+        return

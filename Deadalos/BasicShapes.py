@@ -2,7 +2,7 @@
 BasicsShapes Module.
 
 @author: Andreas Theys.
-@version: 1.0
+@version: 1.2
 """
 
 """
@@ -178,6 +178,16 @@ class Sphere(object):
         if string == "Sphere" or string == "sphere":
             return True
         return False
+    
+    """
+    Renders sphere object in Rhino.
+    
+    @param: [color] color of the sphere (str).
+    """
+    def toRhino(self,color=' '):
+        import RhinoEngine as RE
+        RE.renderSphere(self.o,self.r,color='b')
+        return
 
 """
 Cylinder Object Class.
@@ -237,6 +247,17 @@ class Cylinder(object):
         if string == "Cylinder" or string == "cylinder":
             return True
         return False
+    
+    """
+    Renders cylinder object in Rhino.
+    
+    @param: [color]       color of the cylinder (str).
+    @param: [orientation] orientation of the cylinder (str).
+    """
+    def toRhino(self,color=' ',orientation='xyz'):
+        import RhinoEngine as RE
+        RE.renderCylinder(self.o,self.r,self.h,orientation,color)
+        return
     
 """
 Cube Object Class.
@@ -365,3 +386,14 @@ class Cuboid(object):
         if string == "Cuboid" or string == "cuboid":
             return True
         return False
+    
+    """
+    Renders cuboid object in Rhino.
+    
+    @param: [color]       color of the cuboid (str).
+    @param: [orientation] orientation of the cuboid (str).
+    """
+    def toRhino(self,color=' ',orientation='xyz'):
+        import RhinoEngine as RE
+        RE.renderCuboid(self.o,self.l,self.w,self.h,orientation,color)
+        return
