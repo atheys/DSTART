@@ -10,7 +10,8 @@ Module imports.
 """
 import Rhino as r
 import Rhino.Geometry as geo
-import scriptcontext as sc 
+import scriptcontext as sc
+import rhinoscriptsyntax as rs 
 import System as sys
 from math import sqrt
 
@@ -31,13 +32,13 @@ def drawColor(color):
         return sys.Drawing.Color.Yellow
     elif color == 'o' or color == 'orange':
         return sys.Drawing.Color.Orange  
-    elif color == 'b' or color == 'brown':
+    elif color == 'br' or color == 'brown':
         return sys.Drawing.Color.Brown
-    elif color == 'p' or color == 'pink':
+    elif color == 'pi' or color == 'pink':
         return sys.Drawing.Color.Pink
     elif color == 'i' or color == 'indigo':
         return sys.Drawing.Color.Indigo
-    elif color == 'l' or color == 'purple':
+    elif color == 'p' or color == 'purple':
         return sys.Drawing.Color.Purple
     elif color == 'k' or color == 'black':
         return sys.Drawing.Color.Black
@@ -62,7 +63,7 @@ def giveColor(color):
     index = sc.doc.Materials.Add()
     mat = sc.doc.Materials[index]
     mat.DiffuseColor = drawColor(color)
-    mat.SpecularColor = sys.Drawing.Color.Gray
+    mat.SpecularColor = drawColor(color)
     mat.CommitChanges()
     attributes = r.DocObjects.ObjectAttributes()
     attributes.MaterialIndex = index
@@ -344,8 +345,9 @@ def renderTruncOctahedron(o,r,r2,orientation='xyz',color='b'):
     mesh.Faces.AddFace(7,12,19,13)
     mesh.Faces.AddFace(6,10,18,11)
     attr = giveColor(color)
-    sc.doc.Objects.AddMesh(mesh,attr)
-    sc.doc.Views.Redraw()
+    mesh.UnifyNormals()
+    if sc.doc.Objects.AddMesh(mesh,attr)!=sys.Guid.Empty:
+        sc.doc.Views.Redraw()
     return
  
 """
