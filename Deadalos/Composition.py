@@ -883,6 +883,27 @@ elements = { 'H': H, 'He': He, 'Li': Li, 'Be': Be, 'B': B, \
              'Bi': Bi, 'Th': Th, 'U': U }
 
 """
+Asteroid component dictionary.
+"""
+asteroid_components = { 'H': H_comp2, 'He': He_comp2, 'Li': Li_comp2, 'Be': Be_comp2, 'B': B_comp2, \
+             'C': C_comp2, 'N': N_comp2, 'O': O_comp2, 'F': F_comp2, 'Ne': Ne_comp2, \
+             'Na': Na_comp2, 'Mg': Mg_comp2, 'Al': Al_comp2, 'Si': Si_comp2, 'P': P_comp2, \
+             'S': S_comp2, 'Cl': Cl_comp2, 'Ar': Ar_comp2, 'K': K_comp2, 'Ca': Ca_comp2, \
+             'Sc': Sc_comp2, 'Ti': Ti_comp2, 'V': V_comp2, 'Cr': Cr_comp2, 'Mn': Mn_comp2, \
+             'Fe': Fe_comp2, 'Co': Co_comp2, 'Ni': Ni_comp2, 'Cu': Cu_comp2, 'Zn': Zn_comp2, \
+             'Ga': Ga_comp2, 'Ge': Ge_comp2, 'As': As_comp2, 'Se': Se_comp2, 'Br': Br_comp2, \
+             'Kr': Kr_comp2, 'Rb': Rb_comp2, 'Sr': Sr_comp2, 'Y': Y_comp2, 'Zr': Zr_comp2, \
+             'Nb': Nb_comp2, 'Mo': Mo_comp2, 'Ru': Ru_comp2, 'Rh': Rh_comp2, 'Pd': Pd_comp2, \
+             'Ag': Ag_comp2, 'Cd': Cd_comp2, 'In': In_comp2, 'Sn': Sn_comp2, 'Sb': Sb_comp2, \
+             'Te': Te_comp2, 'I': I_comp2, 'Xe': Xe_comp2, 'Cs': Cs_comp2, 'Ba': Ba_comp2, \
+             'La': La_comp2, 'Ce': Ce_comp2, 'Pr': Pr_comp2, 'Nd': Nd_comp2, 'Sm': Sm_comp2, \
+             'Eu': Eu_comp2, 'Gd': Gd_comp2, 'Tb': Tb_comp2, 'Dy': Dy_comp2, 'Ho': Ho_comp2, \
+             'Er': Er_comp2, 'Tm': Tm_comp2, 'Yb': Yb_comp2, 'Lu': Lu_comp2, 'Hf': Hf_comp2, \
+             'Ta': Ta_comp2, 'W': W_comp2, 'Re': Re_comp2, 'Os': Os_comp2, 'Ir': Ir_comp2, \
+             'Pt': Pt_comp2, 'Au': Au_comp2, 'Hg': Hg_comp2, 'Tl': Tl_comp2, 'Pb': Pb_comp2, \
+             'Bi': Bi_comp2, 'Th': Th_comp2, 'U': U_comp2 }
+
+"""
 Space composition.
 """
 space = Composition([ H_comp,He_comp,Li_comp,Be_comp,B_comp,C_comp, \
