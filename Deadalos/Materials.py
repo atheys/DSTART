@@ -83,9 +83,9 @@ CuAg_foam = Material('Copper-Aluminium Foam',cuag_foam,600.,7500.)
 """
 Honeycombs.
 """
-Al_honey = Material('Aluminium Honeycomb',al_honey,40.,10800.)
+Al_honey = Material('Aluminium Honeycomb',al_honey,40.,10800.,False)
 
 """
 Carbon Fiber.
 """
-C_fiber = Material('Carbon Fiber',cfiber,1800.,225000.)                 # Hexcel UHM Carbon Fiber (12,000 Filaments)
+C_fiber = Material('Carbon Fiber',cfiber,1800.,225000.,False)                 # Hexcel UHM Carbon Fiber (12,000 Filaments)
