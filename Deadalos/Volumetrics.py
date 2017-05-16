@@ -9,7 +9,9 @@ Volumetrics Module.
 Module imports.
 """
 from math import sqrt
-from Composition import space
+from Composition import space,asteroid_components
+from MaterialMaker import composite
+import numpy as np
 
 """
 Module preamble constants.
@@ -123,25 +125,103 @@ def area(a,sides):
         A += a**2
     return A
 
+def uniformWeights(n):
+    n,w = int(n),[]
+    for i in range(n):
+        w.append(1./float(n))
+    return w
 
-"""
-V = 0.3*10**8                   # m/s
-dens = 1.*10**6               # mol/m^3
-energy = 18.75*1.6022*10**(-13)   # J
+def determineK(material,storage,V):
+    m,V = 0.,float(V)
+    for element in material.composition.components:
+        sym = element.material.components[0].material.symbol
+        f_el_mat = element.perc
+        f_el = asteroid_components[sym].perc
+        try:
+            V_el = float(storage[sym])
+        except Exception:
+            V_el = 0.
+        K_el = max(f_el_mat-V_el/V,0.)/f_el
+        if K_el>m:
+            m = K_el
+    return m
+        
 
-E_col = V*dens*energy
-rho = 1800.                     # kg/m^3 
-E_s = 250000.                     # J/kg
+def performance(material,storage,V):
+    V = float(V)
+    K = determineK(material,storage,V)
+    if K>0.:
+        return (material.E_s*material.rho)/(K**(0.75))
+    else:
+        return material.E_s*material.rho
 
-MR = 36.
-f_i = 0.15
+
+def partials(weights,materials,storage,V,prec=0.000001):
+    V,partial = float(V),[]
+    comp0 = composite(' ',weights,materials)
+    perf0 = performance(comp0,storage,V)
+    for i in range(len(weights)):
+        temp = weights[i]
+        weights[i] += prec
+        comp1 = composite(' ',weights,materials)
+        perf1 = performance(comp1,storage,V)
+        partial.append((perf1-perf0)/prec)
+        weights[i] = temp
+    return partial
+        
+
+def deepAscent(materials,storage,V,prec=0.000001,n=10):
+    k = len(materials)
+    w = np.array(uniformWeights(k))
+    x_0,F_0 = np.array(k*[0.]),np.array(k*[0.])
+    gamma = 1.
+    while n>0 and abs(gamma)>prec:
+        part = np.array(partials(w,materials,storage,V))
+        part /= np.linalg.norm(part)
+        gamma = (w-x_0)*(part-F_0)
+        gamma /= np.linalg.norm(part-F_0)**2
+        gamma = sum(gamma)
+        x_0,F_0 = w,part
+        w = w+gamma*part
+        w /= sum(w)
+        n-=1
+    return w.tolist()
+
+
+def determineComposite(materials,storage,V,prec=0.000001,n=10):
+    if len(materials)==1:
+        w = [1.]
+        comp = composite('Material',w,materials)
+    else:
+        w = deepAscent(materials,storage,V,prec,n)
+        comp = composite('Material',w,materials)
+    return w,comp
+
+def modThickness(a,sides,sigma,manu,MR,particles,materials,storage,prec=0.000001,n=10,energy=energy_units(avgMass()),frac=0.1):
+    a,sigma,manu,MR,particles = float(a),float(sigma),float(manu),1./float(MR),float(particles)
+    E_col,A,V = collisionEnergy(particles,energy,frac),area(a,sides),12.*sqrt(2)*a**2
+    w,composite = determineComposite(materials,storage,V,prec,n)
+    rho,SEA,K = composite.rho,composite.E_s,determineK(composite,storage,V)
+    for i in range(2):
+        print sigma*E_col*A*manu
+        print rho*SEA
+        print A*E_col*MR*K
+        t = (sigma*E_col*manu)/((rho*SEA-A*E_col*MR*K))
+        V = 8.*sqrt(2)*(3.*a**2*t-3.*a*t**2+t**3)
+        w,composite = determineComposite(materials,storage,V,prec,n)
+        rho,SEA,K = composite.rho,composite.E_s,determineK(composite,storage,V)
+        print w,V,t
+        print
+
+
+from Materials import Cu_foam,C_fiber,SiC
+
 a = 5.
-manu = 24.*3600.
-A = (6.+12.*sqrt(3))*(a**2)
-
-V = (E_col*A*manu)/(rho*E_s-MR*(1./f_i)*A*E_col)
-t = V/(24.*sqrt(2)*a**2)
-print rho*E_s
-print MR*(1./f_i)*A*E_col
-print t
-"""
+sides = [1,2,3,4,5,6,7,8,9,10,11,12,13,14]
+sigma = 2.
+manu = 30.*24.*3600.
+MR = 1./1800.
+particles = 0.5*10**6
+materials = [C_fiber,Cu_foam,SiC]
+storage = dict([])
+modThickness(a,sides,sigma,manu,MR,particles,materials,storage)
