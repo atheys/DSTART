@@ -419,4 +419,16 @@ def renderTruncCapsule(o,r,h,r2,h2,orientation='xyz',color='b'):
     cone2 = geo.Brep.CreateFromRevSurface(surf2, True, True)
     sc.doc.Objects.AddBrep(cone2,attr)
     sc.doc.Views.Redraw()
-    return    
+    return 
+
+
+import BasicShapes as bs
+h,w = 0.25*sqrt(2.)*(20.),0.25*(10.)
+renderTruncOctahedron(bs.Point(0.,0.,0.),15.,5.,orientation='xyz',color='y')
+renderTruncOctahedron(bs.Point(0.,0.,2*h),15.,5.,orientation='xyz',color='g')
+renderTruncOctahedron(bs.Point(0.,4*w,h),15.,5.,orientation='xyz',color='pi')
+renderTruncOctahedron(bs.Point(0.,-4*w,h),15.,5.,orientation='xyz',color='pi')
+renderTruncOctahedron(bs.Point(-4*w,0.,-h),15.,5.,orientation='xyz',color='pi')
+renderTruncOctahedron(bs.Point(4*w,0.,-h),15.,5.,orientation='xyz',color='pi')
+renderTruncOctahedron(bs.Point(4*w,4*w,0.),15.,5.,orientation='xyz',color='p')
+renderTruncOctahedron(bs.Point(-4*w,-4*w,0.),15.,5.,orientation='xyz',color='b')

@@ -10,6 +10,10 @@ Module imports.
 """
 from Elements import Component,Composition
 from Composition import elements
+from math import pi
+
+g_copper = 5.96*10.**7
+mu_air = 4.*pi*10.**(-7)
 
 """
 Material Object Class.
@@ -25,10 +29,12 @@ class Material(object):
     @param: [E_s]  specific energy absorption (float;J/kg).
     @param: [iso]  isotropic material property (bool).
     """
-    def __init__(self,name,comp,rho=0.,E_s=0.,iso=True):
+    def __init__(self,name,comp,rho=0.,E_s=0.,g=0.,mu=1.,iso=True):
         self.name = str(name)
         self.rho = float(rho)
         self.E_s = float(E_s)
+        self.g = float(g)/g_copper
+        self.mu = float(mu)/mu_air
         self.iso = bool(iso) 
         approve,comps = True,[]
         if type(comp) is list:
@@ -73,11 +79,13 @@ def composite(name,composition,materials):
         name,composition = str(name),normalize(composition)
         N = len(composition)
         if len(materials) == N:
-            rho,E_s,isotropic = 0.,0.,True
+            rho,E_s,g,mu,isotropic = 0.,0.,0.,0.,True
             elements = dict([])
             for i in range(N):
                 rho += composition[i]*materials[i].rho
                 E_s += composition[i]*materials[i].E_s
+                g += composition[i]*materials[i].g
+                mu += composition[i]*materials[i].mu
                 isotropic = isotropic and materials[i].iso
                 for el in materials[i].composition.components:
                     sym = el.material.components[0].material.symbol

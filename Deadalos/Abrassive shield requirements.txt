@@ -1,0 +1,32 @@
+
+1. All Clear (2/3 t)
+	All sub-phases (1t)
+	1.1 All Clear I
+	1.2 All Clear II
+	1.3 All Clear III
+
+2. Marginal (2/3 t)
+	All sub-phases (1t)
+	2.1 Marginal I
+	2.2 Marginal II
+	2.3 Marginal III
+
+3. Fragile (1 t)
+	All sub-phases (1.5 t)
+	3.1 Fragile I
+	3.2 Fragile II
+	3.3 Fragile III
+
+4. Risky (4/3 t)
+	All sub-phases (2 t)
+	4.1 Risky I
+	4.2 Risky II
+	4.3 Risky III
+
+5. Critical (4/3 t)
+	All sub-phases (2t)
+	5.1 Critical I
+	5.2 Critical II
+	5.3 Critical III
+
+6. Super-Critical (3t)

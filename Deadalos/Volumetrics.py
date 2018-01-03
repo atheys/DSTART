@@ -129,11 +129,26 @@ def determineComposite(materials,prec=0.000001,n=10):
     else:
         w = deepAscent(materials,prec,n)
         comp = composite('Material',w,materials)
-    return w,comp
+    return w,comp        
 
 
-        
-        
+def thickness(composite,E_col,time):
+    E_col,time = float(E_col),float(time)
+    t = (E_col*time)/(composite.E_s*composite.rho)
+    return t
+
+def length(composite,E_col,time):
+    E_col,time = float(E_col),float(time)
+    t = thickness(composite,E_col,time)
+    return 66.5/46.5*t
+
+def thicknessList(composite,E_col,time):
+    t = thickness(composite,E_col,time)/15.5
+    t_list = [ 2./3.*t,t/3.,t/3.,t/3.,2./3.*t,t/3.,t/3., \
+               t/3.,t,t/2.,t/2.,t/2.,4./3.*t,2./3.*t,2./3.*t, \
+               2./3.*t,4./3.*t,2./3.*t,2./3.*t,2./3.*t,3.*t]
+    return t_list
+    
 
 
 from Materials import Al_2024,Cu_foam,C_fiber,SiC
@@ -141,9 +156,13 @@ from Materials import Al_2024,Cu_foam,C_fiber,SiC
 a = 5.
 sides = [2]
 sigma = 1.
-manu = 10.*24.*3600.
+manu = 24.*3600.
 MR = 1./50.
 particles = 0.5*10**6
 materials = [Al_2024,Cu_foam,C_fiber]
 storage = dict([])
-print determineComposite(materials,prec=0.000001,n=100)
+w,comp = determineComposite(materials,prec=0.000001,n=100)
+E_col = 14.2
+print thickness(comp,E_col,manu)
+print thicknessList(comp,E_col,manu)
+print length(comp,E_col,manu)

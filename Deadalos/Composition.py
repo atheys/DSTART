@@ -936,4 +936,4 @@ asteroid = Composition([ H_comp2,He_comp2,Li_comp2,Be_comp2,B_comp2,C_comp2, \
                       Eu_comp2,Gd_comp2,Tb_comp2,Dy_comp2,Ho_comp2,Er_comp2, \
                       Tm_comp2,Yb_comp2,Lu_comp2,Hf_comp2,Ta_comp2,W_comp2, \
                       Re_comp2,Os_comp2,Ir_comp2,Pt_comp2,Au_comp2,Hg_comp2, \
-                      Tl_comp2,Pb_comp2,Bi_comp2,Th_comp2,U_comp2])
+                      Tl_comp2,Pb_comp2,Bi_comp2,Th_comp2,U_comp2])       
