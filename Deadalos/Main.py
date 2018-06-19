@@ -5,7 +5,7 @@ from GridCreator import filled,mined,updateGrid,neighbors,makeGrid,makeStarshipB
 from random import random as rdn
 from sets import Set
 
-D = 500.
+D = 300.
 rl = 15.
 theta = 0.2
 #point = P(0.,0.,0.)
